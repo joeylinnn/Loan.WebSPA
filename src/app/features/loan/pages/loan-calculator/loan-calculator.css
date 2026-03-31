@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.calc-tile {
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(2, 6, 23, 0.9));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+.calc-highlight {
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  background: linear-gradient(180deg, rgba(8, 47, 73, 0.72), rgba(15, 23, 42, 0.95));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+:host ::ng-deep .dark-card.p-card {
+  border: 1px solid rgba(71, 85, 105, 0.55);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.96));
+  color: #e2e8f0;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+:host ::ng-deep .dark-card .p-card-body,
+:host ::ng-deep .dark-card .p-card-content {
+  background: transparent;
+  color: #e2e8f0;
+}
+
+:host ::ng-deep .dark-input .p-inputtext,
+:host ::ng-deep .dark-input input,
+:host ::ng-deep .dark-text-input {
+  width: 100%;
+  border: 1px solid rgba(71, 85, 105, 0.7);
+  background: rgba(15, 23, 42, 0.92);
+  color: #f8fafc;
+}
+
+:host ::ng-deep .dark-input .p-inputtext::placeholder,
+:host ::ng-deep .dark-text-input::placeholder {
+  color: #94a3b8;
+}
+
+:host ::ng-deep .dark-input .p-inputtext:enabled:focus,
+:host ::ng-deep .dark-input input:enabled:focus,
+:host ::ng-deep .dark-text-input:enabled:focus {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 1px #22d3ee;
+}
+
+:host ::ng-deep .p-toast .p-toast-message {
+  backdrop-filter: blur(8px);
+}

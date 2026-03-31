@@ -1,0 +1,97 @@
+<div class="mx-auto max-w-7xl px-6 py-8">
+  <div class="mb-6 grid gap-4 md:grid-cols-3">
+    <div class="dark-panel rounded-3xl p-5">
+      <p class="text-sm text-slate-400">Loan Records</p>
+      <p class="mt-2 text-3xl font-semibold text-white">{{ loans().length }}</p>
+      <p class="mt-2 text-sm text-cyan-300">Loaded from .NET 8 Web API</p>
+    </div>
+
+    <div class="dark-panel rounded-3xl p-5">
+      <p class="text-sm text-slate-400">Backend Endpoint</p>
+      <p class="mt-2 text-lg font-semibold text-white break-all">/api/loans</p>
+      <p class="mt-2 text-sm text-emerald-300">Azure function-hosted API</p>
+    </div>
+
+    <div class="dark-panel rounded-3xl p-5">
+      <p class="text-sm text-slate-400">Calculator Page</p>
+      <p class="mt-2 text-3xl font-semibold text-white">Custom Input</p>
+      <p class="mt-2 text-sm text-violet-300">Client-side monthly payment calculation with email functionality</p>
+    </div>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="mb-4 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <p-card styleClass="dark-card overflow-hidden rounded-3xl">
+    <ng-template pTemplate="header">
+      <div class="border-b border-slate-700/60 bg-slate-900/80 px-6 py-5">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="text-sm font-medium text-cyan-300">PrimeNG Data Table</p>
+            <h3 class="mt-1 text-2xl font-semibold text-white">Loans from API</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Click a row action to view a loan with calculated monthly payment from the backend.
+            </p>
+          </div>
+
+          <a
+            routerLink="/calculator"
+            class="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">
+            <i class="pi pi-calculator"></i>
+            Open Calculator
+          </a>
+        </div>
+      </div>
+    </ng-template>
+
+    <p-table
+      styleClass="loan-table"
+      [value]="loans()"
+      [loading]="loading()"
+      responsiveLayout="scroll"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} loans">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Loan ID</th>
+          <th>Principal</th>
+          <th>Annual Rate</th>
+          <th>Term (Years)</th>
+          <th>Rate Band</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-loan>
+        <tr>
+          <td class="font-medium">{{ loan.loanId }}</td>
+          <td>{{ loan.principal | currency }}</td>
+          <td>{{ loan.annualInterestRate }}%</td>
+          <td>{{ loan.termYears }}</td>
+          <td>
+            <p-tag
+              [value]="loan.annualInterestRate + '%'"
+              [severity]="getRateSeverity(loan.annualInterestRate)">
+            </p-tag>
+          </td>
+          <td>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-eye"
+              severity="contrast"
+              [routerLink]="['/loans', loan.loanId]">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

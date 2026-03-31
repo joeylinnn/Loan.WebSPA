@@ -1,0 +1,129 @@
+<p-toast></p-toast>
+
+<div class="mx-auto max-w-7xl px-6 py-8">
+  <div class="grid gap-6 lg:grid-cols-2">
+    <p-card styleClass="dark-card overflow-hidden rounded-3xl">
+      <ng-template pTemplate="header">
+        <div class="border-b border-slate-700/60 bg-slate-900/80 px-6 py-5">
+          <p class="text-sm font-medium text-cyan-300">Loan Calculator</p>
+          <h2 class="mt-1 text-2xl font-semibold text-white">Custom Loan Input</h2>
+          <p class="mt-2 text-sm text-slate-300">
+            Enter any loan values and calculate monthly payment locally in Angular.
+          </p>
+        </div>
+      </ng-template>
+
+      <form [formGroup]="calculatorForm" class="grid gap-5 py-4">
+        <div>
+          <label class="mb-2 block text-sm font-medium text-slate-200">Principal</label>
+          <p-inputNumber
+            formControlName="principal"
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+            inputId="principal"
+            styleClass="dark-input w-full">
+          </p-inputNumber>
+        </div>
+
+        <div>
+          <label class="mb-2 block text-sm font-medium text-slate-200">Annual Interest Rate (%)</label>
+          <p-inputNumber
+            formControlName="annualInterestRate"
+            [minFractionDigits]="2"
+            [maxFractionDigits]="4"
+            inputId="annualInterestRate"
+            styleClass="dark-input w-full">
+          </p-inputNumber>
+        </div>
+
+        <div>
+          <label class="mb-2 block text-sm font-medium text-slate-200">Term (Years)</label>
+          <p-inputNumber
+            formControlName="termYears"
+            inputId="termYears"
+            styleClass="dark-input w-full">
+          </p-inputNumber>
+        </div>
+
+        <div>
+          <label class="mb-2 block text-sm font-medium text-slate-200">Recipient Email</label>
+          <input
+            pInputText
+            type="email"
+            formControlName="recipientEmail"
+            placeholder="name@example.com"
+            class="dark-text-input w-full" />
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button
+            pButton
+            type="button"
+            label="Calculate"
+            icon="pi pi-calculator"
+            (click)="calculateLoan()">
+          </button>
+
+          <button
+            pButton
+            type="button"
+            label="Send Email"
+            icon="pi pi-envelope"
+            severity="contrast"
+            [disabled]="!result() || sending()"
+            [loading]="sending()"
+            (click)="sendEmail()">
+          </button>
+        </div>
+      </form>
+    </p-card>
+
+    <p-card styleClass="dark-card overflow-hidden rounded-3xl">
+      <ng-template pTemplate="header">
+        <div class="border-b border-slate-700/60 bg-slate-900/80 px-6 py-5">
+          <p class="text-sm font-medium text-cyan-300">Calculation Result</p>
+          <h2 class="mt-1 text-2xl font-semibold text-white">Payment Summary</h2>
+        </div>
+      </ng-template>
+
+      @if (result(); as r) {
+        <div class="grid gap-4 py-4 sm:grid-cols-2">
+          <div class="calc-tile rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Principal</p>
+            <p class="mt-2 text-xl font-semibold text-white">{{ r.principal | currency }}</p>
+          </div>
+
+          <div class="calc-tile rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Annual Rate</p>
+            <p class="mt-2 text-xl font-semibold text-white">{{ r.annualInterestRate }}%</p>
+          </div>
+
+          <div class="calc-tile rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Term</p>
+            <p class="mt-2 text-xl font-semibold text-white">{{ r.termYears }} years</p>
+          </div>
+
+          <div class="calc-highlight rounded-2xl p-4">
+            <p class="text-sm text-cyan-200">Monthly Payment</p>
+            <p class="mt-2 text-xl font-semibold text-cyan-300">{{ r.monthlyPayment | currency }}</p>
+          </div>
+
+          <div class="calc-tile rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Total Payment</p>
+            <p class="mt-2 text-xl font-semibold text-white">{{ r.totalPayment | currency }}</p>
+          </div>
+
+          <div class="calc-tile rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Total Interest</p>
+            <p class="mt-2 text-xl font-semibold text-white">{{ r.totalInterest | currency }}</p>
+          </div>
+        </div>
+      } @else {
+        <div class="py-8 text-slate-300">
+          Enter loan values and click <span class="font-semibold text-white">Calculate</span>.
+        </div>
+      }
+    </p-card>
+  </div>
+</div>

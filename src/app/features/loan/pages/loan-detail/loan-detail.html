@@ -1,0 +1,59 @@
+<div class="mx-auto max-w-5xl px-6 py-8">
+  <div class="mb-4">
+    <a
+      routerLink="/loans"
+      class="inline-flex items-center gap-2 rounded-xl border border-slate-700/60 bg-slate-900/70 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-slate-800/80">
+      <i class="pi pi-arrow-left"></i>
+      Back to Loans
+    </a>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="mb-4 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <p-card styleClass="dark-card overflow-hidden rounded-3xl">
+    <ng-template pTemplate="header">
+      <div class="border-b border-slate-700/60 bg-slate-900/80 px-6 py-5">
+        <p class="text-sm font-medium text-cyan-300">Loan Detail from API</p>
+        <h2 class="mt-1 text-2xl font-semibold text-white">Loan Payment Summary</h2>
+        <p class="mt-2 text-sm text-slate-300">
+          This page consumes the backend endpoint for a single loan and shows the calculated monthly payment.
+        </p>
+      </div>
+    </ng-template>
+
+    @if (loading()) {
+      <div class="py-8 text-slate-300">Loading loan details...</div>
+    } @else if (loan(); as item) {
+      <div class="grid gap-4 py-4 sm:grid-cols-2">
+        <div class="detail-tile rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Loan ID</p>
+          <p class="mt-2 text-xl font-semibold text-white">{{ item.loanId }}</p>
+        </div>
+
+        <div class="detail-tile rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Principal</p>
+          <p class="mt-2 text-xl font-semibold text-white">{{ item.principal | currency }}</p>
+        </div>
+
+        <div class="detail-tile rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Annual Interest Rate</p>
+          <p class="mt-2 text-xl font-semibold text-white">{{ item.annualInterestRate }}%</p>
+        </div>
+
+        <div class="detail-tile rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Term</p>
+          <p class="mt-2 text-xl font-semibold text-white">{{ item.termYears }} years</p>
+        </div>
+
+        <div class="highlight-tile rounded-2xl p-5 sm:col-span-2">
+          <p class="text-sm text-cyan-200">Monthly Payment</p>
+          <p class="mt-2 text-3xl font-semibold text-cyan-300">{{ item.monthlyPayment | currency }}</p>
+        </div>
+      </div>
+    }
+  </p-card>
+</div>

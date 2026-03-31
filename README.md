@@ -1,59 +1,46 @@
-# LoanWebSPA
+# Loan Management & Calculation Demo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+A full-stack demo application for managing loans, viewing loan details, calculating monthly payments, and emailing loan calculation results.
 
-## Development server
+This project uses **.NET 8 Web API** for the backend and **Angular 21** for the frontend, with **PrimeNG** and **Tailwind CSS** for the UI. It was built as a portfolio project to demonstrate modern full-stack development, REST API integration, responsive SPA design, IIS deployment, and email workflow integration. :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Backend
+- .NET 8
+- ASP.NET Core Web API
+- Entity Framework Core
+- SQL Server
+- MailKit
+- IIS hosting
 
-## Code scaffolding
+### Frontend
+- Angular 21
+- TypeScript
+- Tailwind CSS
+- PrimeNG
+- RxJS
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## Features
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- View a paginated list of loan records
+- View loan detail and backend-calculated monthly payment
+- Calculate custom loan payments on the client side
+- Send loan calculation results by email
+- Responsive UI with modern dark-themed styling
+- IIS-ready deployment setup for both frontend and backend
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## Project Structure
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```text
+LoanDemo/
+├── LoanServiceApp.Api/        # .NET 8 Web API
+├── LoanServiceApp.Core/       # Business logic and interfaces
+├── LoanServiceApp.Data/       # Data access and repositories
+└── loan.webSPA/               # Angular 21 frontend
