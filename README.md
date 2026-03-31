@@ -2,8 +2,7 @@
 
 A full-stack demo application for managing loans, viewing loan details, calculating monthly payments, and emailing loan calculation results.
 
-This project uses **.NET 8 Web API** for the backend and **Angular 21** for the frontend, with **PrimeNG** and **Tailwind CSS** for the UI. It was built as a portfolio project to demonstrate modern full-stack development, REST API integration, responsive SPA design, IIS deployment, and email workflow integration. :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
-
+This project uses **.NET 8 Web API** for the backend and **Angular 21** for the frontend, with **PrimeNG** and **Tailwind CSS** for the UI. It was built as a portfolio project to demonstrate modern full-stack development, REST API integration, responsive SPA design, IIS deployment, and email workflow integration.
 ---
 
 ## Tech Stack
