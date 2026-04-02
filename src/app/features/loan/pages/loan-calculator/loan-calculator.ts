@@ -41,7 +41,7 @@ export class LoanCalculator {
     principal: [250000, [Validators.required, Validators.min(1)]],
     annualInterestRate: [6.25, [Validators.required, Validators.min(0)]],
     termYears: [30, [Validators.required, Validators.min(1)]],
-    recipientEmail: ['', [Validators.required, Validators.email]]
+    recipientEmail: ['', [Validators.email]]
   });
 
 
