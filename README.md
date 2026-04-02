@@ -1,4 +1,6 @@
 # Loan Management & Calculation Demo
+## Try it here
+https://loancalculator.zhengyuan-lin.com/
 
 A full-stack demo application for managing loans, viewing loan details, calculating monthly payments, and emailing loan calculation results.
 
