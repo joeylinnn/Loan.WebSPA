@@ -15,12 +15,16 @@
     <div class="dark-panel rounded-3xl p-5">
       <p class="text-sm text-slate-400">Calculator Page</p>
       <p class="mt-2 text-3xl font-semibold text-white">Custom Input</p>
-      <p class="mt-2 text-sm text-violet-300">Client-side monthly payment calculation with email functionality</p>
+      <p class="mt-2 text-sm text-violet-300">
+        Client-side monthly payment calculation with email functionality
+      </p>
     </div>
   </div>
 
   @if (errorMessage()) {
-    <div class="mb-4 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+    <div
+      class="mb-4 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-200"
+    >
       {{ errorMessage() }}
     </div>
   }
@@ -39,7 +43,8 @@
 
           <a
             routerLink="/calculator"
-            class="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">
+            class="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+          >
             <i class="pi pi-calculator"></i>
             Open Calculator
           </a>
@@ -48,6 +53,7 @@
     </ng-template>
 
     <p-table
+      #dt
       styleClass="loan-table"
       [value]="loans()"
       [loading]="loading()"
@@ -57,16 +63,116 @@
       [rows]="5"
       [rowsPerPageOptions]="[5, 10, 20]"
       [showCurrentPageReport]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} loans">
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} loans"
+      sortMode="multiple"
+    >
       <ng-template pTemplate="header">
         <tr>
-          <th>Loan ID</th>
-          <th>Principal</th>
-          <th>Annual Rate</th>
-          <th>Term (Years)</th>
+ <th pSortableColumn="loanId" style="min-width: 8rem">
+        <div class="flex align-items-center gap-2">
+          <span>Loan ID</span>
+          <p-sortIcon field="loanId"></p-sortIcon>
+          <p-columnFilter
+            type="numeric"
+            field="loanId"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+            class="ml-auto">
+          </p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="principal" style="min-width: 12rem">
+        <div class="flex align-items-center gap-2">
+          <span>Principal</span>
+          <p-sortIcon field="principal"></p-sortIcon>
+          <p-columnFilter
+            type="numeric"
+            field="principal"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+            class="ml-auto">
+          </p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="annualInterestRate" style="min-width: 10rem">
+        <div class="flex align-items-center gap-2">
+          <span>Rate</span>
+          <p-sortIcon field="annualInterestRate"></p-sortIcon>
+          <p-columnFilter
+            type="numeric"
+            field="annualInterestRate"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+            class="ml-auto">
+          </p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="termYears" style="min-width: 9rem">
+        <div class="flex align-items-center gap-2">
+          <span>Term</span>
+          <p-sortIcon field="termYears"></p-sortIcon>
+          <p-columnFilter
+            type="numeric"
+            field="termYears"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+            class="ml-auto">
+          </p-columnFilter>
+        </div>
+      </th>
           <th>Rate Band</th>
           <th>Action</th>
         </tr>
+        <!-- <tr>
+          <th>
+            <p-columnFilter
+              type="numeric"
+              field="loanId"
+              placeholder="Filter ID"
+              ariaLabel="Filter Loan ID"
+              styleClass="w-5rem"
+              class="ml-auto"
+            ></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter
+              type="numeric"
+              field="principal"
+              placeholder="Filter principal"
+              ariaLabel="Filter Principal"
+            ></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter
+              type="numeric"
+              field="annualInterestRate"
+              placeholder="Filter rate"
+              ariaLabel="Filter Interest Rate"
+            ></p-columnFilter>
+          </th>
+
+          <th>
+            <p-columnFilter
+              type="numeric"
+              field="termYears"
+              placeholder="Filter term"
+              ariaLabel="Filter Term Years"
+            ></p-columnFilter>
+          </th>
+        </tr> -->
       </ng-template>
 
       <ng-template pTemplate="body" let-loan>
@@ -78,7 +184,8 @@
           <td>
             <p-tag
               [value]="loan.annualInterestRate + '%'"
-              [severity]="getRateSeverity(loan.annualInterestRate)">
+              [severity]="getRateSeverity(loan.annualInterestRate)"
+            >
             </p-tag>
           </td>
           <td>
@@ -87,8 +194,8 @@
               type="button"
               icon="pi pi-eye"
               severity="contrast"
-              [routerLink]="['/loans', loan.loanId]">
-            </button>
+              [routerLink]="['/loans', loan.loanId]"
+            ></button>
           </td>
         </tr>
       </ng-template>

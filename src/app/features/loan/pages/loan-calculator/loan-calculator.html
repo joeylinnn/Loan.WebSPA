@@ -22,18 +22,22 @@
             currency="USD"
             locale="en-US"
             inputId="principal"
-            styleClass="dark-input w-full">
+            styleClass="dark-input w-full"
+          >
           </p-inputNumber>
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-slate-200">Annual Interest Rate (%)</label>
+          <label class="mb-2 block text-sm font-medium text-slate-200"
+            >Annual Interest Rate (%)</label
+          >
           <p-inputNumber
             formControlName="annualInterestRate"
             [minFractionDigits]="2"
             [maxFractionDigits]="4"
             inputId="annualInterestRate"
-            styleClass="dark-input w-full">
+            styleClass="dark-input w-full"
+          >
           </p-inputNumber>
         </div>
 
@@ -42,18 +46,43 @@
           <p-inputNumber
             formControlName="termYears"
             inputId="termYears"
-            styleClass="dark-input w-full">
+            styleClass="dark-input w-full"
+          >
           </p-inputNumber>
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-slate-200">Recipient Email</label>
+          <label class="mb-2 block text-sm font-medium text-slate-200">
+            Recipient Email (Try it)
+          </label>
+
           <input
             pInputText
             type="email"
             formControlName="recipientEmail"
             placeholder="name@example.com"
-            class="dark-text-input w-full" />
+            class="dark-text-input w-full"
+            [class.border-red-400]="
+              calculatorForm.get('recipientEmail')?.invalid &&
+              calculatorForm.get('recipientEmail')?.touched
+            "
+          />
+
+          @if (
+            calculatorForm.get('recipientEmail')?.touched &&
+            calculatorForm.get('recipientEmail')?.hasError('required')
+          ) {
+            <small class="mt-2 block text-sm text-red-300"> Recipient email is required. </small>
+          }
+
+          @if (
+            calculatorForm.get('recipientEmail')?.touched &&
+            calculatorForm.get('recipientEmail')?.hasError('email')
+          ) {
+            <small class="mt-2 block text-sm text-red-300">
+              Please enter a valid email address.
+            </small>
+          }
         </div>
 
         <div class="flex flex-wrap gap-3 pt-2">
@@ -62,8 +91,8 @@
             type="button"
             label="Calculate"
             icon="pi pi-calculator"
-            (click)="calculateLoan()">
-          </button>
+            (click)="calculateLoan()"
+          ></button>
 
           <button
             pButton
@@ -71,10 +100,10 @@
             label="Send Email"
             icon="pi pi-envelope"
             severity="contrast"
-            [disabled]="!result() || sending()"
+            [disabled]="!result() || sending() || calculatorForm.get('recipientEmail')?.invalid"
             [loading]="sending()"
-            (click)="sendEmail()">
-          </button>
+            (click)="sendEmail()"
+          ></button>
         </div>
       </form>
     </p-card>
@@ -106,7 +135,9 @@
 
           <div class="calc-highlight rounded-2xl p-4">
             <p class="text-sm text-cyan-200">Monthly Payment</p>
-            <p class="mt-2 text-xl font-semibold text-cyan-300">{{ r.monthlyPayment | currency }}</p>
+            <p class="mt-2 text-xl font-semibold text-cyan-300">
+              {{ r.monthlyPayment | currency }}
+            </p>
           </div>
 
           <div class="calc-tile rounded-2xl p-4">
